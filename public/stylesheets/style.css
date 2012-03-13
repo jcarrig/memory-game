@@ -1,0 +1,10 @@
+body{padding:0;margin:0;font:14px "Lucida Grande",Helvetica,Arial,sans-serif;background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #66d4ff));background:-webkit-linear-gradient(top, #fff 0%, #66d4ff 100%);background:-moz-linear-gradient(top, #fff 0%, #66d4ff 100%);background:linear-gradient(top, #fff 0%, #66d4ff 100%)}
+header h1{padding:0 50px;display:inline-block}
+header p{display:inline-block}
+a{color:#00b7ff}
+#game{padding:0 35px;width:850px;margin:0 auto}
+div.card{width:150px;height:150px;border:1px solid #00b7ff;border-right:1px solid #0092cc;border-bottom:1px solid #006e99;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;display:inline-block;margin:15px;padding:15px;vertical-align:top;background-color:#fff}
+#messages{width:100%;position:fixed;top:0;left:0;height:60px;}
+#messages .status{text-align:center;padding:15px}
+#messages .green{background-color:#cfc;color:#0c0}
+#messages .red{background-color:#fcc;color:#f33}

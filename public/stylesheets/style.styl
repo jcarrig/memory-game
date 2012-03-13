@@ -1,0 +1,47 @@
+@import 'nib'
+
+body
+  padding 0
+  margin 0
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
+  background linear-gradient(top, #FFFFFF, lighten(#00B7FF, 20))
+header
+  h1
+    padding 0 50px
+    display inline-block
+  p
+    display inline-block
+a
+  color: #00B7FF
+#game
+  padding 0 35px
+  width 850px
+  margin 0 auto
+div.card
+  width 150px
+  height 150px
+  border 1px solid #00B7FF
+  border-right 1px solid darken(#00B7FF, 10)
+  border-bottom 1px solid darken(#00B7FF, 20)
+  border-radius 5px
+  display inline-block
+  margin 15px
+  padding 15px
+  vertical-align top
+  background-color #fff
+#messages
+  width 100%
+  fixed top left
+  height 60px
+  .status
+    text-align center
+    padding 15px
+  .green
+    background-color #ccffcc
+    //background-transparency(#ccffcc, .6)
+    color #00cc00
+  .red
+    background-color #ffcccc
+    //background-transparency(#ffcccc, .6)
+    color #ff3333
+

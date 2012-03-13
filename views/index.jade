@@ -1,0 +1,10 @@
+header
+  h1= title
+  p powered by Instagram
+section
+  #messages
+  #game
+    - each card in cards
+      div(id=card.card_id).card
+        //p= card.id
+        a(href="/flip/"+card.game_id+"/"+card.card_id) flip me
