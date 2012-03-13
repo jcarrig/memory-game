@@ -1,0 +1,18 @@
+Memory Game 
+
+The application is setup to run on localhost right now.
+
+You need to create an instagram app and add "instagram_auth.js" with the following contents:
+
+/* 
+	client id and secret key for instagram auth 
+*/
+
+var instagram_auth = {
+	"client_id" : "your_instagram_app_client_id",
+	"client_secret" : "your_instagram_app_client_secret"
+}
+
+exports.instagram_auth = instagram_auth;
+
+
