@@ -5,7 +5,7 @@ var Server = require('mongodb').Server;
 var ObjectID = require('mongodb').ObjectID;
 var util = require('util');
 
-var instagram_auth = require('./instagram_auth').instagram_auth;
+//authenticate instagram api
 var instagram = require('instagram').createClient(process.env['INSTAGRAM_CLIENT_ID'] ,process.env['INSTAGRAM_CLIENT_SECRET'] );
 
 MemoryGame = function(dbconfig){
