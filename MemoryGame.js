@@ -8,25 +8,24 @@ var util = require('util');
 //authenticate instagram api
 var instagram = require('instagram').createClient(process.env['INSTAGRAM_CLIENT_ID'] ,process.env['INSTAGRAM_CLIENT_SECRET'] );
 
-MemoryGame = function(dbconfig, callback){
+MemoryGame = function(dbconfig){
 	//connecting to mongo db
 	this.db= new Db(dbconfig.database, new Server(dbconfig.hostname, dbconfig.port, {auto_reconnect: true}));
 	//authenticate the server
 	if(dbconfig.auth) {
 		this.db.open(function(err, data) { 
-			if(err) callback(err);
-			else {
+			if(err){
+			   console.log("error opening: "+err);	
+			   //callback(err);
+			}else {
 				data.authenticate(dbconfig.username, dbconfig.password, function(err2, data2) { 
-					if(err2) callback(err2)
-					else{
-						callback(null,data2);
+					if(err2){ 
+						console.log("error authenticating: "+err2);
+						//callback(err2)
+					}else{
+						console.log("database opened.");
+						//callback(null,data2);
 					}
-					//if(data2){
-					//	console.log("database opened");
-					//}
-					//else{
-					//	console.log(err2);
-					//}
 				});
 			}
 		});
