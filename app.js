@@ -42,9 +42,12 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 });
 
+var dburl = process.env['MONGOLAB_URI'] != null ? process.env['MONGOLAB_URI'] : 'mongodb://localhost:27017/memorygame';
+var dbconfig = require('./dbconfig.js').dbconfig(dburl);
+
 
 var MemoryGame = require('./MemoryGame.js').MemoryGame;
-var memoryGame = new MemoryGame();
+var memoryGame = new MemoryGame(dbconfig);
 
 // Routes
 app.get('/', function(req,res) {
@@ -74,10 +77,6 @@ app.get('/flip/:game_id/:card_id', function(req, res) {
 		}
 	});
 });
-
-
-
-
 
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

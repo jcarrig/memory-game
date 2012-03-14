@@ -1,19 +1,39 @@
 //MemoryGame.js
 
 var Db = require('mongodb').Db;
-//var Connection = require('mongodb').Connection;
 var Server = require('mongodb').Server;
-//var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
 var util = require('util');
 
 var instagram_auth = require('./instagram_auth').instagram_auth;
-var instagram = require('instagram').createClient(instagram_auth.client_id,instagram_auth.client_secret);
+var instagram = require('instagram').createClient(process.env['INSTAGRAM_CLIENT_ID'] ,process.env['INSTAGRAM_CLIENT_SECRET'] );
 
-MemoryGame = function(){
-	this.db= new Db('memorygame', new Server('localhost', 27017, {auto_reconnect: true}));
+MemoryGame = function(dbconfig){
+	//connecting to mongo db
+	this.db= new Db(dbconfig.database, new Server(dbconfig.hostname, dbconfig.port, {auto_reconnect: true}));
 	//authenticate the server
-	this.db.open(function() {});
+	if(dbconfig.auth) {
+		this.db.open(function(err, data) { 
+			if(err) callback(err);
+			else {
+				data.authenticate(dbconfig.username, dbconfig.password, function(err2, data2) { 
+					if(err2) callback(err2)
+					else{
+						callback(null,data2);
+					}
+					//if(data2){
+					//	console.log("database opened");
+					//}
+					//else{
+					//	console.log(err2);
+					//}
+				});
+			}
+		});
+	}else{
+		this.db.open(function() {});
+	}	
+	
 	this.cards = [];
 };
 
@@ -28,9 +48,9 @@ MemoryGame.prototype.newGame = function(callback) {
 	this.getCollection(function(error, games) {
 		if(error) callback(error)
 		else {
-			this.game_id = 'gPYfDz';
-			callback(null, this.game_id);
-			/*uncomment when you want to hit instagram and make a new game
+			//this.game_id = 'gPYfDz';
+			//callback(null, this.game_id);
+			//uncomment when you want to hit instagram and make a new game
 			var numMatches = 8;
 			var numCards = 2 * numMatches;
 			this.game_id = "g"+makeid();
@@ -60,7 +80,7 @@ MemoryGame.prototype.newGame = function(callback) {
 				}
 				callback(null, this.game_id);
 			});
-			end block comment*/
+			//end block comment
 		}
 	});
 }
@@ -102,73 +122,3 @@ function makeid()
 
 
 exports.MemoryGame = MemoryGame;
-
-
-
-/*
-ArticleProvider.prototype.findAll = function(callback) {
-	this.getCollection(function(error, article_collection) {
-		if(error) callback(error)
-		else {
-			article_collection.find().sort({created_at:-1}).toArray(function(error, results) {
-				if(error) callback(error)
-				else callback(null, results)
-			});
-		}
-	});
-};
-
-ArticleProvider.prototype.findById = function(id, callback) {
-	this.getCollection(function(error, article_collection) {
-		if(error) callback(error) 
-		else {
-				article_collection.findOne({_id: article_collection.db.bson_serializer.ObjectID.createFromHexString(id)}, function(error, result) {
-				if(error) callback(error)
-				else callback(null, result)
-			});
-		}
-	});
-}
-
-ArticleProvider.prototype.save = function(articles, callback) {
-	this.getCollection(function(error, article_collection) {
-		if(error) callback(error)
-		else {
-			if(typeof(articles.length) == "undefined")
-				articles = [articles];
-			
-			for(var i=0; i < articles.length; i++) {
-				article = articles[i];
-				article.created_at = new Date();
-
-				if(article.comments === undefined)
-					article.comments = [];
-
-				for(var j=0;j < article.comments.length; j++) {
-					article.comments[j].created_at = new Date();
-				}
-			}
-			
-			article_collection.insert(articles, function() {
-				callback(null, articles);
-			});	
-		}
-	});
-}
-
-ArticleProvider.prototype.addCommentToArticle = function(articleId, comment, callback) {
-	this.getCollection(function(error, article_collection) {
-		if(error) callback(error)
-		else {
-			article_collection.update(
-				{_id: new ObjectID(articleId)},
-				{"$push": {comments: comment}},
-				function(error, article) {
-					if(error) callback(error);
-					else callback(null, article);
-				}
-			);
-		}
-	});
-	
-}*/

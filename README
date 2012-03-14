@@ -1,18 +1,7 @@
 Memory Game 
 
-The application is setup to run on localhost right now.
+The application is depends on the following environment vars:
 
-You need to create an instagram app and add "instagram_auth.js" with the following contents:
-
-/* 
-	client id and secret key for instagram auth 
-*/
-
-var instagram_auth = {
-	"client_id" : "your_instagram_app_client_id",
-	"client_secret" : "your_instagram_app_client_secret"
-}
-
-exports.instagram_auth = instagram_auth;
-
-
+MONGOLAB_URI (defaults to 'mongodb://localhost:27017/memorygame')
+INSTAGRAM_CLIENT_ID
+INSTAGRAM_CLIENT_SECRET (no default for instagram api)
