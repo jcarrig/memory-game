@@ -8,7 +8,7 @@ var util = require('util');
 //authenticate instagram api
 var instagram = require('instagram').createClient(process.env['INSTAGRAM_CLIENT_ID'] ,process.env['INSTAGRAM_CLIENT_SECRET'] );
 
-MemoryGame = function(dbconfig){
+MemoryGame = function(dbconfig, callback){
 	//connecting to mongo db
 	this.db= new Db(dbconfig.database, new Server(dbconfig.hostname, dbconfig.port, {auto_reconnect: true}));
 	//authenticate the server
