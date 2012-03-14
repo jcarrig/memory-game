@@ -58,10 +58,9 @@ MemoryGame.prototype.newGame = function(callback) {
 			instagram.media.popular(function(images, error) {
 				if(error) console.log("instagram error: "+error);
 				else {
-					//res.send(util.inspect(images));
 					var i = 0;
+					//insert cards into a game
 					for(var x in images) {
-						//console.log(util.inspect(images[x]));
 						if(i < numMatches) {
 							for(var j = 0; j < 2; j++) {
 								card = {
