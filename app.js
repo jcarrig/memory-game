@@ -50,7 +50,16 @@ var MemoryGame = require('./MemoryGame.js').MemoryGame;
 var memoryGame = new MemoryGame(dbconfig);
 
 // Routes
+
 app.get('/', function(req,res) {
+	res.render('start.jade', {
+		locals: {
+			title: 'start a game!',
+		}
+	});
+});
+
+app.get('/flip', function(req,res) {
 	//create a new game of in the database
 	memoryGame.newGame(function(error, game){
 		//get dealt cards for the game and display them
@@ -58,9 +67,9 @@ app.get('/', function(req,res) {
 			if(error) callback(error)
 			else {
 				//res.send(util.inspect(cards));
-				res.render('index.jade', { 
+				res.render('flip.jade', { 
 					locals: {
-						title: 'memory',
+						title: 'powered by instagram',
 						cards:cards
 					}
 				});

@@ -1,0 +1,12 @@
+header
+  h1 memory
+  p powered by Instagram
+section
+  #messages
+  #game
+    - each card in cards
+      div(id=card.card_id).card
+        //p= card.id
+        a(href="/flip/"+card.game_id+"/"+card.card_id) flip me
+footer
+  <p>copyright 2012 <a href="http://jackcarrig.com" target="_blank">jackcarrig.com</a></p>
