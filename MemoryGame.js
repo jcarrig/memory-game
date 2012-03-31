@@ -34,69 +34,90 @@ MemoryGame = function(dbconfig){
 	}	
 	
 	this.cards = [];
+
 };
 
-MemoryGame.prototype.getCollection = function(callback) {
-	this.db.collection('games', function(error, game_collection) {
+MemoryGame.prototype.getCollection = function(collectionName, callback) {
+	this.db.collection(collectionName, function(error, coll) {
 		if(error) callback(error)
-		else callback(null, game_collection)
+		else callback(null, coll)
 	});
 }
 
-MemoryGame.prototype.newGame = function(callback) {
-	this.getCollection(function(error, games) {
+MemoryGame.prototype.newGame = function(config, callback) {
+	
+	this.numMatches = config.matches;
+	this.tag = config.tag;
+		
+	this.getCollection('games', function(error, games) {
 		if(error) callback(error)
 		else {
-			//this.game_id = 'gPYfDz';
-			//callback(null, this.game_id);
-			//uncomment when you want to hit instagram and make a new game
-			var numMatches = 8;
-			var numCards = 2 * numMatches;
-			this.game_id = "g"+makeid();
-			var card = {};
-			
-			instagram.media.popular(function(images, error) {
-				if(error) console.log("instagram error: "+error);
-				else {
-					var i = 0;
-					//insert cards into a game
-					for(var x in images) {
-						if(i < numMatches) {
-							for(var j = 0; j < 2; j++) {
-								card = {
-									'game_id' : this.game_id,
-									'card_id' : makeid(),
-									'source' : images[x].images.thumbnail.url,
-									'pic_id' : images[x].id,
-									'created_at' : new Date()
-								};
-								games.insert(card);
-							}
-							i++;
-						}else break;
-					}
-				}
-				callback(null, this.game_id);
-			});
-			//end block comment
+			callback(null, games);
 		}
 	});
 }
 
+MemoryGame.prototype.getPhotos = function(callback) {
+	
+	if(this.tag) {
+		instagram.tags.media(this.tag, function (tag, error) {
+			if(error) console.log("instagram error: "+error);
+			else {
+				callback(null, tag);
+			}
+		});
+	}else{
+		instagram.media.popular(function(images, error){
+			if(error) console.log("instagram error: "+error);
+			else {
+				callback(null, images);
+			}
+		});
+	}
+}
+
+MemoryGame.prototype.setupGame = function(config, callback) {
+	
+	this.game_id = "g"+makeid();
+	
+	var card = {};
+	var i = 0;
+	//insert cards into a game
+	for(var x in config.photos) {
+		if(i < this.numMatches) {
+			for(var j = 0; j < 2; j++) {
+				card = {
+					'game_id' : this.game_id,
+					'card_id' : makeid(),
+					'source' : config.photos[x].images.thumbnail.url,
+					'pic_id' : config.photos[x].id,
+					'created_at' : new Date()
+				};
+				config.games.insert(card);
+			}
+			i++;
+		}else break;
+	}
+	callback(null, this.game_id);
+}
+
 MemoryGame.prototype.dealGame = function(game_id, callback) {
-	this.getCollection(function(error, games) {
+	this.getCollection('games', function(error, games) {
 		if(error) callback(error)
 		else {
-			games.find({'game_id':game_id}).sort({'card_id':1}).toArray(function(error, cards) {
+			games.find({'game_id':game_id}, {'card_id': 1}).sort({'card_id':1}).toArray(function(error, cards) {
 				if(error) callback(error)
-				else callback(null, cards);
+				else {
+					var delt = [{"game_id": game_id, "cards": cards}];
+					callback(null, delt);
+				}
 			});
 		}
 	});
 }
 
 MemoryGame.prototype.flipCard = function(game_id, card_id, callback) {
-	this.getCollection(function(error, games) {
+	this.getCollection('games', function(error, games) {
 		if(error) callback(error)
 		else {
 			games.findOne({'game_id':game_id, 'card_id': card_id}, function(error, pic) {

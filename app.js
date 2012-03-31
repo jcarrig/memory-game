@@ -52,28 +52,34 @@ var memoryGame = new MemoryGame(dbconfig);
 // Routes
 
 app.get('/', function(req,res) {
-	res.render('start.jade', {
+	res.render('index.jade', {
 		locals: {
 			title: 'start a game!',
 		}
 	});
 });
 
-app.get('/flip', function(req,res) {
+app.post('/start', function(req,res) {
+	
+	var gameConfig = {
+		'matches': 8
+	,	'tag': req.param('tag')
+	};
+	
 	//create a new game of in the database
-	memoryGame.newGame(function(error, game){
-		//get dealt cards for the game and display them
-		memoryGame.dealGame(game, function(error, cards) {
-			if(error) callback(error)
-			else {
-				//res.send(util.inspect(cards));
-				res.render('flip.jade', { 
-					locals: {
-						title: 'powered by instagram',
-						cards:cards
+	memoryGame.newGame(gameConfig, function(error, game){
+		//load photos from instagram
+		memoryGame.getPhotos(function(error, photos){
+			//add game and photos to db
+			memoryGame.setupGame({'games':game, 'photos':photos}, function(error, game) {
+				//get dealt cards for the game and display them
+				memoryGame.dealGame(game, function(error, cards) {
+					if(error) callback(error)
+					else {
+						res.send(cards);
 					}
 				});
-			}
+			});
 		});
 	});
 });

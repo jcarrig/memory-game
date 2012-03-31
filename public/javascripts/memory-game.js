@@ -2,7 +2,36 @@ var turn = [];
 
 $(function(){
 	
-	$('div.card a').click(function(e) {
+	//Start a new game of memory
+	$('button#start-btn').click(function(e){
+		$.ajax({
+			url: '/start'
+		,	type: "POST"
+		,	dataType: "json"
+		,	cache: false
+		, 	data: { 'tag': $('#search').val() }
+		,	success: function(data){
+				var cards = data[0].cards;
+				var game_id = data[0].game_id;
+				if(cards.length > 0) {
+					$('div#game').hide().html('loading...');
+					var game = $(document.createElement('div'));
+					for (var i in cards) {
+						var el = $(document.createElement('div')).attr({'id': cards[i].card_id, 'class':'card'});
+						el.append($(document.createElement('a')).attr('href', '/flip/'+game_id+'/'+cards[i].card_id).text('flip me'));
+						game.append(el);
+					}
+					$('div#game').hide().html(game).fadeIn();
+				}
+			}
+		,	error: function(jqXHR, textStatus, err){
+		   		alert('text status '+textStatus+', err '+err)
+		  	}	
+		});
+	});
+	
+	
+	$('div.card a').live('click',function(e) {
 		e.preventDefault();
 		$(this).addClass('selected');
 		//if less than 2 cards have been flipped.

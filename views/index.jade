@@ -1,10 +1,15 @@
-header
-  h1= title
-  p powered by Instagram
-section
-  #messages
-  #game
-    - each card in cards
-      div(id=card.card_id).card
-        //p= card.id
-        a(href="/flip/"+card.game_id+"/"+card.card_id) flip me
+div#container
+  header
+    h1 memory
+    p powered by Instagram
+  div#main
+    div.large
+      div.form-input
+        input(type="text", id="search", placeholder="Popular Photos", tabIndex="1")
+        label(for="search", tabIndex="2") search your favorite tags to customize your game.
+      div.form-button
+        button#start-btn Play now!
+    #messages
+    #game
+  footer
+    <p>copyright 2012 <a href="http://jackcarrig.com" target="_blank">jackcarrig.com</a></p>
