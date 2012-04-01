@@ -42,15 +42,29 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 });
 
+
+// io events to recieve and send
+var io = require('socket.io').listen(app);
+io.sockets.on('connection', function(socket) {
+	// listens to see if new game with a tag has started and sends
+	// tag update to browser to update Popular recent tags
+	socket.on('startedGame', function(data){
+		socket.broadcast.emit('tagUpdate', data.gameTag);
+	});
+});
+
+
+// mongodb url
 var dburl = process.env['MONGOLAB_URI'] != null ? process.env['MONGOLAB_URI'] : 'mongodb://localhost:27017/memorygame';
 var dbconfig = require('./dbconfig.js').dbconfig(dburl);
 
 
+// create memoryGame 
 var MemoryGame = require('./MemoryGame.js').MemoryGame;
 var memoryGame = new MemoryGame(dbconfig);
 
-// Routes
 
+// Routes
 app.get('/', function(req,res) {
 	memoryGame.getPopularTags(function(error, tags){
 		if(error) callback(error);

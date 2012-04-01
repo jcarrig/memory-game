@@ -15,7 +15,7 @@ div#container
       p Popular games being played now:
       ul
         - each tag in tags
-          li 
+          li(class=tag.tagName, data-total=tag.total) 
             button(value=tag.tagName)!= tag.tagName
   footer
     <p>copyright 2012 <a href="http://jackcarrig.com" target="_blank">jackcarrig.com</a></p>

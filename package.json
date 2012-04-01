@@ -14,5 +14,6 @@
     , "mongodb": ""
     , "util": ""
 	, "instagram": ""
+	, "socket.io": ""
   }
 }

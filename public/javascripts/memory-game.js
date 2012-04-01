@@ -1,6 +1,41 @@
 var turn = [];
+var socket = io.connect(); // TIP: .connect with no args does auto-discovery
 
 $(function(){
+	
+	// listens for new tags that are being played and updates Popular recent tags played
+	socket.on('tagUpdate', function (data) {
+		// if the tag is already on the page, increment the total and sort
+		if($('#popularGameTags ul li.'+data).length > 0){ 
+			$('#popularGameTags ul li.'+data).attr('data-total', parseInt($('#popularGameTags ul li.'+data).attr('data-total')) + 1);
+			$('#popularGameTags ul>li').tsort({order:'desc', attr:'data-total'});
+		}else{
+			// create the tag and append it to the buttons
+			var el = $(document.createElement('button')).val(data).text(data);
+			var li = $(document.createElement('li')).addClass(data).attr('data-total','1').append(el);
+			$('#popularGameTags ul').append(li);
+		}
+	});
+
+	// Callback for successful AJAX game loading...
+	var dealCards = function(data) {
+		var cards = data[0].cards;
+		var game_id = data[0].game_id;
+		if(cards.length > 0) {
+			$('div#game').hide().html('loading...');
+			var game = $(document.createElement('div'));
+			for (var i in cards) {
+				var el = $(document.createElement('div')).attr({'id': cards[i].card_id, 'class':'card'});
+				el.append($(document.createElement('a')).attr('href', '/flip/'+game_id+'/'+cards[i].card_id).text('flip me'));
+				game.append(el);
+			}
+			$('div#game').hide().html(game).fadeIn();
+		}
+		var tag = cards[0].tag;
+		if(tag)
+			socket.emit('startedGame', {'gameTag': tag});
+	}
+	
 	
 	//Start a new game of memory from the start button
 	$('button#start-btn').click(function(e){
@@ -11,20 +46,7 @@ $(function(){
 		,	dataType: "json"
 		,	cache: false
 		, 	data: { 'tag': $('#search').val() }
-		,	success: function(data){
-				var cards = data[0].cards;
-				var game_id = data[0].game_id;
-				if(cards.length > 0) {
-					$('div#game').hide().html('loading...');
-					var game = $(document.createElement('div'));
-					for (var i in cards) {
-						var el = $(document.createElement('div')).attr({'id': cards[i].card_id, 'class':'card'});
-						el.append($(document.createElement('a')).attr('href', '/flip/'+game_id+'/'+cards[i].card_id).text('flip me'));
-						game.append(el);
-					}
-					$('div#game').hide().html(game).fadeIn();
-				}
-			}
+		,	success: dealCards
 		,	error: function(jqXHR, textStatus, err){
 		   		alert('text status '+textStatus+', err '+err)
 		  	}	
@@ -32,7 +54,7 @@ $(function(){
 	});
 	
 	//Start a new game of memory from Popular search button
-	$('div#popularGameTags button').click(function(e){
+	$('div#popularGameTags button').live('click', function(e){
 		
 		$('#search').val($(this).val());
 		
@@ -42,20 +64,7 @@ $(function(){
 		,	dataType: "json"
 		,	cache: false
 		, 	data: { 'tag': $(this).val() }
-		,	success: function(data){
-				var cards = data[0].cards;
-				var game_id = data[0].game_id;
-				if(cards.length > 0) {
-					$('div#game').hide().html('loading...');
-					var game = $(document.createElement('div'));
-					for (var i in cards) {
-						var el = $(document.createElement('div')).attr({'id': cards[i].card_id, 'class':'card'});
-						el.append($(document.createElement('a')).attr('href', '/flip/'+game_id+'/'+cards[i].card_id).text('flip me'));
-						game.append(el);
-					}
-					$('div#game').hide().html(game).fadeIn();
-				}
-			}
+		,	success: dealCards
 		,	error: function(jqXHR, textStatus, err){
 		   		alert('text status '+textStatus+', err '+err)
 		  	}	
@@ -115,6 +124,7 @@ $(function(){
 		}
 	});
 	
+	// After game has ended focus on search input and scroll to Play now! button
 	$('a.start-over').live('click', function(){
 		$('div.status').fadeOut('normal', function(){$(this).remove()});
 		$('#search').val('').focus();

@@ -107,13 +107,6 @@ MemoryGame.prototype.getPhotos = function(callback) {
 				});
 			}
 		});
-		/*instagram.tags.media(this.tag, function (tag, error) {
-			if(error) console.log("instagram error: "+error);
-			else {
-				callback(null, tag);
-			}
-		});*/
-		
 	}else{
 		instagram.media.popular(function(images, error){
 			if(error) console.log("instagram error: "+error);
@@ -141,6 +134,8 @@ MemoryGame.prototype.setupGame = function(config, callback) {
 					'pic_id' : config.photos[x].id,
 					'created_at' : new Date()
 				};
+				if(this.tag != null)
+					card.tag = this.tag;
 				config.games.insert(card);
 			}
 			i++;
@@ -150,10 +145,12 @@ MemoryGame.prototype.setupGame = function(config, callback) {
 }
 
 MemoryGame.prototype.dealGame = function(game_id, callback) {
-	this.getCollection('games', function(error, games) {
+	var gameTag = this.tag; 
+	this.getCollection('games', function(error, games, gameTag) {
 		if(error) callback(error)
 		else {
-			games.find({'game_id':game_id}, {'card_id': 1}).sort({'card_id':1}).toArray(function(error, cards) {
+			var thisGameTag = gameTag;
+			games.find({'game_id':game_id}, {'card_id': 1, 'tag': 1}).sort({'card_id':1}).toArray(function(error, cards, thisGameTag) {
 				if(error) callback(error)
 				else {
 					var delt = [{"game_id": game_id, "cards": cards}];
