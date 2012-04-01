@@ -71,7 +71,6 @@ app.get('/', function(req,res) {
 		else{
 			res.render('index.jade', {
 				locals: {
-					title: 'start a game!',
 					tags: tags
 				}
 			});

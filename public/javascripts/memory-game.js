@@ -1,5 +1,6 @@
 var turn = [];
-var socket = io.connect(); // TIP: .connect with no args does auto-discovery
+var socket = io.connect();
+var allowedSearchKeys = [48,49,50,51,52,53,54,55,56,57,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122];
 
 $(function(){
 	
@@ -14,6 +15,13 @@ $(function(){
 			var el = $(document.createElement('button')).val(data).text(data);
 			var li = $(document.createElement('li')).addClass(data).attr('data-total','1').append(el);
 			$('#popularGameTags ul').append(li);
+		}
+	});
+
+	// Some search input checking - still need more
+	$('#search').keypress(function(e) {
+		if ($.inArray(e.which, allowedSearchKeys) < 0) {
+			e.preventDefault();
 		}
 	});
 
@@ -36,7 +44,6 @@ $(function(){
 			socket.emit('startedGame', {'gameTag': tag});
 	}
 	
-	
 	//Start a new game of memory from the start button
 	$('button#start-btn').click(function(e){
 		
@@ -52,7 +59,7 @@ $(function(){
 		  	}	
 		});
 	});
-	
+
 	//Start a new game of memory from Popular search button
 	$('div#popularGameTags button').live('click', function(e){
 		
