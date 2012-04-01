@@ -44,6 +44,28 @@ MemoryGame.prototype.getCollection = function(collectionName, callback) {
 	});
 }
 
+MemoryGame.prototype.saveTagToDB = function(tag, callback) {
+	this.getCollection('tags', function(error, tags) {
+		if(error) callback(error)
+		else {
+			//will add a new tag to the db and increment an existing tag's total and updated_at
+			tags.update( 
+				{ 'tagName': tag }, 
+				{ $set: { 'updated_at': new Date() }, $inc: { 'total': 1 } }, 
+				{ upsert: true }, 
+				function(error, obj){
+					if(error){
+						console.log('error: '+error.message)
+						callback(error);
+					}else{
+						callback(null, tag);
+					}
+				}
+			);
+		}
+	});
+}
+
 MemoryGame.prototype.newGame = function(config, callback) {
 	
 	this.numMatches = config.matches;
@@ -60,12 +82,24 @@ MemoryGame.prototype.newGame = function(config, callback) {
 MemoryGame.prototype.getPhotos = function(callback) {
 	
 	if(this.tag) {
-		instagram.tags.media(this.tag, function (tag, error) {
+		this.saveTagToDB(this.tag, function(error, searchTag){
+			if(error) callback(error);
+			else {
+				instagram.tags.media(searchTag, function (images, error) {
+					if(error) console.log("instagram error: "+error);
+					else {	
+						callback(null, images);
+					}
+				});
+			}
+		});
+		/*instagram.tags.media(this.tag, function (tag, error) {
 			if(error) console.log("instagram error: "+error);
 			else {
 				callback(null, tag);
 			}
-		});
+		});*/
+		
 	}else{
 		instagram.media.popular(function(images, error){
 			if(error) console.log("instagram error: "+error);
