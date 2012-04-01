@@ -66,6 +66,20 @@ MemoryGame.prototype.saveTagToDB = function(tag, callback) {
 	});
 }
 
+MemoryGame.prototype.getPopularTags = function(callback) {
+	this.getCollection('tags', function(error, tags){
+		if(error) callback(error);
+		else {
+			tags.find( {}, { 'limit': 50, 'sort': [[ 'total', 'desc' ], ['updated_at', 'desc']] } ).toArray(function(error, popTags){
+				if(error) callback(error);
+				else {
+					callback(null, popTags);
+				}
+			});
+		}
+	});
+}
+
 MemoryGame.prototype.newGame = function(config, callback) {
 	
 	this.numMatches = config.matches;

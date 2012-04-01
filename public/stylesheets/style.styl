@@ -11,37 +11,46 @@ body
   margin 0
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
   background linear-gradient(top, #FFFFFF, lighten(#00B7FF, 20))
+  color #006E99
 #container
   min-height 100%
   position relative
+  width 850px
+  margin 0 auto
+  padding 0 35px
 header
+  position relative
   h1
-    padding 0 50px
+    margin-right 10px
     display inline-block
   p
+    font-size 12px
     display inline-block
 #main
   padding-bottom 60px
 a
   color: #00B7FF
-div.large
+div#search-form.large
+  position relative
   width 850px
   margin 0 auto
   padding 25px
   div
     display inline-block
   div.form-input
-    width 600px
+    width 580px
     padding 15px  
   div.form-button
     vertical-align top
     padding 15px
   input
-    width 550px
+    width 530px
     padding 10px
     font-size 24px
-    border-radius 10px
+    border-radius 18px
     border 1px solid #00B7FF
+    border-right 1px solid darken(#00B7FF, 10)
+    border-bottom 1px solid darken(#00B7FF, 20)
   input:focus
     box-shadow: 0px 0px 5px #00B7FF
   label
@@ -50,33 +59,26 @@ div.large
     margin 5px 0 0 5px
     display inline-block 
   button
-    background #66D4FF
-    border-top 1px solid #38538c
-    border-right 1px solid #1f2d4d
-    border-bottom 1px solid #151e33
-    border-left 1px solid #1f2d4d
-    border-radius 4px
-    box-shadow inset 0 1px 10px 1px #5c8bee, 0px 1px 0 #1d2c4d, 0 6px 0px #1f3053, 0 8px 4px 1px #111111
+    background-color #00ff66
+    background-image linear-gradient(top, #ee432e 0%, #c63929 50%, #b51700 50%, #891100 100%)
+    border 1px solid #951100
+    border-radius 5px
+    box-shadow inset 0px 0px 0px 1px rgba(255, 115, 100, 0.4), 0 1px 3px #333333
     color #fff
     font bold 20px "helvetica neue", helvetica, arial, sans-serif
     line-height 1
-    margin-top 0
-    margin-bottom 10px
-    padding 10px 0 12px 0
+    padding 12px 0 14px 0
     text-align center
-    text-shadow 0px -1px 1px #1e2d4d
-    width 150px
-    -webkit-background-clip padding-box
-  button:hover
-    box-shadow inset 0 0px 20px 1px #87adff, 0px 1px 0 #1d2c4d, 0 6px 0px #1f3053, 0 8px 4px 1px #111111
-    cursor pointer
-  button:active
-    box-shadow inset 0 1px 10px 1px #5c8bee, 0 1px 0 #1d2c4d, 0 2px 0 #1f3053, 0 4px 3px 0 #111111
-    margin-top 8px
-#game
-  padding 0 35px
-  width 850px
-  margin 0 auto
+    text-shadow 0px -1px 1px rgba(0, 0, 0, 0.8)
+    width 150px 
+  button:hover 
+    background-color #f37873
+    background-image linear-gradient(top, #f37873 0%, #db504d 50%, #cb0500 50%, #a20601 100%)
+    cursor pointer 
+  button:active 
+    background-color #d43c28
+    //background-image linear-gradient(top, #d43c28 0%, #ad3224 50%, #9c1500 50%, #700d00 100%)
+    box-shadow inset 0px 0px 0px 1px rgba(255, 115, 100, 0.4)
 div.card
   width 150px
   height 150px
@@ -94,6 +96,7 @@ div.card
     width 150px
     height 150px
 #messages
+  z-index 3
   width 100%
   fixed top left
   height 60px
@@ -106,6 +109,42 @@ div.card
   .red
     background-color #ffcccc
     color #ff3333
+#popularGameTags
+  padding 20px 15px
+  p
+    font-size 16px
+  ul
+    padding 0 14px
+    li
+      display inline-block
+      padding 4px
+      button
+        background-color #a5b8da
+        background-image linear-gradient(top, lighten(#ee432e, 10), lighten(#c63929, 10))
+        border-top 1px solid #951100
+        border-right 1px solid lighten(#951100, 10)
+        border-bottom 1px solid #951100
+        border-left 1px solid lighten(#951100, 10)
+        border-radius 18px
+        box-shadow inset 0 1px 0 0 #c63929
+        color #fff
+        font bold 11px "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif
+        line-height 1
+        padding 8px 12px
+        text-align center
+        text-shadow 0 -1px 1px #ee432e
+      button:hover
+        background-color #9badcc
+        background-image linear-gradient(top, #ee432e, #c63929)
+        border-top 1px solid #951100
+        border-right 1px solid lighten(#951100, 10)
+        border-bottom 1px solid #951100
+        border-left 1px solid lighten(#951100, 10)
+        box-shadow inset 0 1px 0 0 #c63929
+        cursor pointer
+      button:active
+        border 1px solid #546685
+        box-shadow inset 0 0 8px 2px #7e8da6, 0 1px 0 0 #eeeeee
 footer
   position absolute
   bottom 0
@@ -115,8 +154,5 @@ footer
   text-align center
   p
     font-size 12px
-    color #555
-    a
-      color #555
 
 

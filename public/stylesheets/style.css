@@ -1,27 +1,33 @@
 html{height:100%;padding:0;body:0;background-color:#66d4ff}
-body{height:100%;padding:0;margin:0;font:14px "Lucida Grande",Helvetica,Arial,sans-serif;background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #66d4ff));background:-webkit-linear-gradient(top, #fff 0%, #66d4ff 100%);background:-moz-linear-gradient(top, #fff 0%, #66d4ff 100%);background:linear-gradient(top, #fff 0%, #66d4ff 100%)}
-#container{min-height:100%;position:relative}
-header h1{padding:0 50px;display:inline-block}
-header p{display:inline-block}
+body{height:100%;padding:0;margin:0;font:14px "Lucida Grande",Helvetica,Arial,sans-serif;background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #66d4ff));background:-webkit-linear-gradient(top, #fff 0%, #66d4ff 100%);background:-moz-linear-gradient(top, #fff 0%, #66d4ff 100%);background:linear-gradient(top, #fff 0%, #66d4ff 100%);color:#006e99}
+#container{min-height:100%;position:relative;width:850px;margin:0 auto;padding:0 35px}
+header{position:relative;}
+header h1{margin-right:10px;display:inline-block}
+header p{font-size:12px;display:inline-block}
 #main{padding-bottom:60px}
 a{color:#00b7ff}
-div.large{width:850px;margin:0 auto;padding:25px;}
-div.large div{display:inline-block}
-div.large div.form-input{width:600px;padding:15px}
-div.large div.form-button{vertical-align:top;padding:15px}
-div.large input{width:550px;padding:10px;font-size:24px;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;border:1px solid #00b7ff}
-div.large input:focus{-webkit-box-shadow:0 0 5px #00b7ff;-moz-box-shadow:0 0 5px #00b7ff;box-shadow:0 0 5px #00b7ff}
-div.large label{width:550px;font-size:11px;margin:5px 0 0 5px;display:inline-block}
-div.large button{background:#66d4ff;border-top:1px solid #38538c;border-right:1px solid #1f2d4d;border-bottom:1px solid #151e33;border-left:1px solid #1f2d4d;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;-webkit-box-shadow:inset 0 1px 10px 1px #5c8bee,0 1px 0 #1d2c4d,0 6px 0 #1f3053,0 8px 4px 1px #111;-moz-box-shadow:inset 0 1px 10px 1px #5c8bee,0 1px 0 #1d2c4d,0 6px 0 #1f3053,0 8px 4px 1px #111;box-shadow:inset 0 1px 10px 1px #5c8bee,0 1px 0 #1d2c4d,0 6px 0 #1f3053,0 8px 4px 1px #111;color:#fff;font:bold 20px "helvetica neue",helvetica,arial,sans-serif;line-height:1;margin-top:0;margin-bottom:10px;padding:10px 0 12px 0;text-align:center;text-shadow:0 -1px 1px #1e2d4d;width:150px;-webkit-background-clip:padding-box}
-div.large button:hover{-webkit-box-shadow:inset 0 0 20px 1px #87adff,0 1px 0 #1d2c4d,0 6px 0 #1f3053,0 8px 4px 1px #111;-moz-box-shadow:inset 0 0 20px 1px #87adff,0 1px 0 #1d2c4d,0 6px 0 #1f3053,0 8px 4px 1px #111;box-shadow:inset 0 0 20px 1px #87adff,0 1px 0 #1d2c4d,0 6px 0 #1f3053,0 8px 4px 1px #111;cursor:pointer}
-div.large button:active{-webkit-box-shadow:inset 0 1px 10px 1px #5c8bee,0 1px 0 #1d2c4d,0 2px 0 #1f3053,0 4px 3px 0 #111;-moz-box-shadow:inset 0 1px 10px 1px #5c8bee,0 1px 0 #1d2c4d,0 2px 0 #1f3053,0 4px 3px 0 #111;box-shadow:inset 0 1px 10px 1px #5c8bee,0 1px 0 #1d2c4d,0 2px 0 #1f3053,0 4px 3px 0 #111;margin-top:8px}
-#game{padding:0 35px;width:850px;margin:0 auto}
+div#search-form.large{position:relative;width:850px;margin:0 auto;padding:25px;}
+div#search-form.large div{display:inline-block}
+div#search-form.large div.form-input{width:580px;padding:15px}
+div#search-form.large div.form-button{vertical-align:top;padding:15px}
+div#search-form.large input{width:530px;padding:10px;font-size:24px;-webkit-border-radius:18px;-moz-border-radius:18px;border-radius:18px;border:1px solid #00b7ff;border-right:1px solid #0092cc;border-bottom:1px solid #006e99}
+div#search-form.large input:focus{-webkit-box-shadow:0 0 5px #00b7ff;-moz-box-shadow:0 0 5px #00b7ff;box-shadow:0 0 5px #00b7ff}
+div#search-form.large label{width:550px;font-size:11px;margin:5px 0 0 5px;display:inline-block}
+div#search-form.large button{background-color:#0f6;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #ee432e), color-stop(0.5, #c63929), color-stop(0.5, #b51700), color-stop(1, #891100));background-image:-webkit-linear-gradient(top, #ee432e 0%, #c63929 50%, #b51700 50%, #891100 100%);background-image:-moz-linear-gradient(top, #ee432e 0%, #c63929 50%, #b51700 50%, #891100 100%);background-image:linear-gradient(top, #ee432e 0%, #c63929 50%, #b51700 50%, #891100 100%);border:1px solid #951100;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;-webkit-box-shadow:inset 0 0 0 1px rgba(255,115,100,0.40),0 1px 3px #333;-moz-box-shadow:inset 0 0 0 1px rgba(255,115,100,0.40),0 1px 3px #333;box-shadow:inset 0 0 0 1px rgba(255,115,100,0.40),0 1px 3px #333;color:#fff;font:bold 20px "helvetica neue",helvetica,arial,sans-serif;line-height:1;padding:12px 0 14px 0;text-align:center;text-shadow:0 -1px 1px rgba(0,0,0,0.80);width:150px}
+div#search-form.large button:hover{background-color:#f37873;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #f37873), color-stop(0.5, #db504d), color-stop(0.5, #cb0500), color-stop(1, #a20601));background-image:-webkit-linear-gradient(top, #f37873 0%, #db504d 50%, #cb0500 50%, #a20601 100%);background-image:-moz-linear-gradient(top, #f37873 0%, #db504d 50%, #cb0500 50%, #a20601 100%);background-image:linear-gradient(top, #f37873 0%, #db504d 50%, #cb0500 50%, #a20601 100%);cursor:pointer}
+div#search-form.large button:active{background-color:#d43c28;-webkit-box-shadow:inset 0 0 0 1px rgba(255,115,100,0.40);-moz-box-shadow:inset 0 0 0 1px rgba(255,115,100,0.40);box-shadow:inset 0 0 0 1px rgba(255,115,100,0.40)}
 div.card{width:150px;height:150px;border:1px solid #00b7ff;border-right:1px solid #0092cc;border-bottom:1px solid #006e99;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;display:inline-block;margin:15px;padding:15px;vertical-align:top;background-color:#fff;}
 div.card a{display:inline-block;width:150px;height:150px}
-#messages{width:100%;position:fixed;top:0;left:0;height:60px;}
+#messages{z-index:3;width:100%;position:fixed;top:0;left:0;height:60px;}
 #messages .status{text-align:center;padding:15px}
 #messages .green{background-color:#cfc;color:#0c0}
 #messages .red{background-color:#fcc;color:#f33}
+#popularGameTags{padding:20px 15px;}
+#popularGameTags p{font-size:16px}
+#popularGameTags ul{padding:0 14px;}
+#popularGameTags ul li{display:inline-block;padding:4px;}
+#popularGameTags ul li button{background-color:#a5b8da;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #f26d5d), color-stop(1, #d95749));background-image:-webkit-linear-gradient(top, #f26d5d 0%, #d95749 100%);background-image:-moz-linear-gradient(top, #f26d5d 0%, #d95749 100%);background-image:linear-gradient(top, #f26d5d 0%, #d95749 100%);border-top:1px solid #951100;border-right:1px solid #c81700;border-bottom:1px solid #951100;border-left:1px solid #c81700;-webkit-border-radius:18px;-moz-border-radius:18px;border-radius:18px;-webkit-box-shadow:inset 0 1px 0 0 #c63929;-moz-box-shadow:inset 0 1px 0 0 #c63929;box-shadow:inset 0 1px 0 0 #c63929;color:#fff;font:bold 11px "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;line-height:1;padding:8px 12px;text-align:center;text-shadow:0 -1px 1px #ee432e}
+#popularGameTags ul li button:hover{background-color:#9badcc;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #ee432e), color-stop(1, #c63929));background-image:-webkit-linear-gradient(top, #ee432e 0%, #c63929 100%);background-image:-moz-linear-gradient(top, #ee432e 0%, #c63929 100%);background-image:linear-gradient(top, #ee432e 0%, #c63929 100%);border-top:1px solid #951100;border-right:1px solid #c81700;border-bottom:1px solid #951100;border-left:1px solid #c81700;-webkit-box-shadow:inset 0 1px 0 0 #c63929;-moz-box-shadow:inset 0 1px 0 0 #c63929;box-shadow:inset 0 1px 0 0 #c63929;cursor:pointer}
+#popularGameTags ul li button:active{border:1px solid #546685;-webkit-box-shadow:inset 0 0 8px 2px #7e8da6,0 1px 0 0 #eee;-moz-box-shadow:inset 0 0 8px 2px #7e8da6,0 1px 0 0 #eee;box-shadow:inset 0 0 8px 2px #7e8da6,0 1px 0 0 #eee}
 footer{position:absolute;bottom:0;height:60px;left:0;right:0;text-align:center;}
-footer p{font-size:12px;color:#555;}
-footer p a{color:#555}
+footer p{font-size:12px}

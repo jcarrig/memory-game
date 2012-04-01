@@ -52,9 +52,15 @@ var memoryGame = new MemoryGame(dbconfig);
 // Routes
 
 app.get('/', function(req,res) {
-	res.render('index.jade', {
-		locals: {
-			title: 'start a game!',
+	memoryGame.getPopularTags(function(error, tags){
+		if(error) callback(error);
+		else{
+			res.render('index.jade', {
+				locals: {
+					title: 'start a game!',
+					tags: tags
+				}
+			});
 		}
 	});
 });

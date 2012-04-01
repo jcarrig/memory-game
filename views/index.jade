@@ -1,15 +1,21 @@
 div#container
   header
-    h1 memory
-    p powered by Instagram
+    h1 flip me!
+    p a memory game powered by Instagram
   div#main
-    div.large
+    #messages
+    #game
+    div#search-form.large
       div.form-input
         input(type="text", id="search", placeholder="Popular Photos", tabIndex="1")
         label(for="search", tabIndex="2") search your favorite tags to customize your game.
       div.form-button
         button#start-btn Play now!
-    #messages
-    #game
+    #popularGameTags
+      p Popular games being played now:
+      ul
+        - each tag in tags
+          li 
+            button(value=tag.tagName)!= tag.tagName
   footer
     <p>copyright 2012 <a href="http://jackcarrig.com" target="_blank">jackcarrig.com</a></p>
